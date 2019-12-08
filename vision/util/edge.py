@@ -21,7 +21,11 @@ def get_edge_angle_hist(edge: Edge, bins: int, threshold: float):
 
                 bin_val = m.floor((edge.angle[i, j] / (2*np.pi)) * bins)
                 angle_vals.append(bin_val)
-    return np.histogram(angle_vals, bins=bins, density=True)
+
+    if len(angle_vals) > 0:
+        return np.histogram(angle_vals, bins=bins, density=True)[0]
+    else:
+        return np.zeros(bins)
 
 
 def get_edge_info(pixels: np.array = None,
@@ -39,7 +43,7 @@ def get_edge_info(pixels: np.array = None,
         grey = cv2.cvtColor(i, cv2.COLOR_BGR2GRAY)
 
         if blur is True:
-            i = convolve2d(grey, np.array([[1, 1, 1], [1, 1, 1], [1, 1, 1]]) / 9)
+            grey = convolve2d(grey, np.array([[1, 1, 1], [1, 1, 1], [1, 1, 1]]) / 9)
 
         dx = convolve2d(grey, kx)
         dy = convolve2d(grey, ky)

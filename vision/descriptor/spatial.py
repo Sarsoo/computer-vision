@@ -43,7 +43,7 @@ def extract_spatial_texture(height: int,
         for seg in segments:
             img_edge = edge.get_edge_info(pixels=seg)
             hist = edge.get_edge_angle_hist(img_edge, bins=bins, threshold=threshold)
-            descriptor = np.append(descriptor, hist[0])
+            descriptor = np.append(descriptor, hist)
         return descriptor
 
     if images is not None:
@@ -68,9 +68,43 @@ def extract_spatial_average_rgb(height: int,
         raise KeyError('no image provided')
 
     def extract(i):
-        segments = grid_image(height, width, pixels)
+        segments = grid_image(height, width, i)
         descriptor = np.array([])
         for seg in segments:
+            descriptor = np.append(descriptor, rgb.extract_average_rgb(pixels=seg))
+        return descriptor
+
+    if images is not None:
+        length = len(images)
+        for index, image in enumerate(images):
+            logger.debug(f'generating {index} of {length}')
+            image.descriptor = extract(image.pixels)
+        return
+    elif image is not None:
+        image.descriptor = extract(image.pixels)
+    else:
+        return extract(pixels)
+
+
+def extract_spatial_avg_rgb_texture(height: int,
+                                    width: int,
+                                    bins: int,
+                                    threshold: float,
+                                    pixels: np.array = None,
+                                    image: Image = None,
+                                    images: List[Image] = None):
+
+    if pixels is None and image is None and images is None:
+        raise KeyError('no image provided')
+
+    def extract(i):
+        segments = grid_image(height, width, i)
+        descriptor = np.array([])
+        for seg in segments:
+            img_edge = edge.get_edge_info(pixels=seg)
+            hist = edge.get_edge_angle_hist(img_edge, bins=bins, threshold=threshold)
+            descriptor = np.append(descriptor, hist)
+
             descriptor = np.append(descriptor, rgb.extract_average_rgb(pixels=seg))
         return descriptor
 

@@ -25,7 +25,15 @@ def load_set(path: str) -> List[Image]:
     logger.info(f'loading set from {path}')
 
     files = load_path(path)
-    images = [Image(cv2.imread(i))[:, :, ::-1] for i in files]
+    images = [Image(cv2.normalize(
+                        cv2.imread(i)[:, :, ::-1].  # slice to go from BGR to RGB
+                        astype('float'),
+                        None,  # output obj none
+                        alpha=0,
+                        beta=1,
+                        norm_type=cv2.NORM_MINMAX,
+                        dtype=cv2.CV_32F)
+                ) for i in files]
     return images
 
 
@@ -40,7 +48,14 @@ def load_msrc(path: str, descriptor_path=None) -> List[Image]:
         file_name_split = file_name.split('_')
         category = int(file_name_split[0])
         name = int(file_name_split[1])
-        images.append(Image(cv2.imread(image)[:, :, ::-1],
+        images.append(Image(cv2.normalize(
+                                cv2.imread(image)[:, :, ::-1].  # slice to go from BGR to RGB
+                                astype('float'),
+                                None,  # output obj none
+                                alpha=0,
+                                beta=1,
+                                norm_type=cv2.NORM_MINMAX,
+                                dtype=cv2.CV_32F),
                             category=category,
                             name=name))
 
