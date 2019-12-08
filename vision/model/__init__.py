@@ -12,6 +12,12 @@ class Image:
         self.name = name
         self.descriptor = descriptor
 
+        self.distance = 0
+
+    def clear(self):
+        self.descriptor = None
+        self.distance = 0
+
     @property
     def shape(self):
         return self.pixels.shape
