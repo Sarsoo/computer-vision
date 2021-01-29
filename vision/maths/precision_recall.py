@@ -1,12 +1,13 @@
+from dataclasses import dataclass
 from typing import List
 from vision.model import Image
 
 
+@dataclass
 class PrecisionRecall:
-    def __init__(self, precision, recall, ap):
-        self.precision = precision
-        self.recall = recall
-        self.ap = ap
+    precision: float
+    recall: float
+    ap: float
 
 
 def get_precision(images: List[Image], test):

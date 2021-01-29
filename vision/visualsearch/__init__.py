@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from typing import List
 import random
 import numpy as np
@@ -8,14 +9,11 @@ import logging
 logger = logging.getLogger(__name__)
 
 
+@dataclass
 class QueryResult:
-    def __init__(self,
-                 sorted_images: List[Image],
-                 query_image: Image,
-                 precision_recall: pr.PrecisionRecall):
-        self.sorted_images = sorted_images
-        self.query_image = query_image
-        self.precision_recall = precision_recall
+    sorted_images: List[Image]
+    query_image: Image
+    precision_recall: pr.PrecisionRecall
 
 
 def run_query(images: List[Image], distance_measure=None, query_index=None):

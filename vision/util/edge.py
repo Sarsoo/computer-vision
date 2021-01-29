@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from vision.model import Image
 from typing import List
 import numpy as np
@@ -6,10 +7,10 @@ import math as m
 import cv2
 
 
+@dataclass
 class Edge:
-    def __init__(self, magnitude: np.array, angle: np.array):
-        self.magnitude = magnitude
-        self.angle = angle
+    magnitude: np.array
+    angle: np.array
 
 
 def get_edge_angle_hist(edge: Edge, bins: int, threshold: float):

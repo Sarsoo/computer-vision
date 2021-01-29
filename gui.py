@@ -1,6 +1,6 @@
 import cv2
 
-img = cv2.imread('nebula2.jpg', 0)
+img = cv2.imread('sheep.png')
 
 cv2.imshow('image', img)
 k = cv2.waitKey(0)
