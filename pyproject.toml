@@ -5,13 +5,14 @@ description = "Jupyter scratchpad for playing with computer vision"
 authors = ["andy <andy@sarsoo.xyz>"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "~3.8"
 numpy = "^1.19.5"
 opencv-python = "^4.5.1"
 scikit-learn = "^0.24.1"
 scipy = "^1.6.0"
 jupyterlab = {version = "^3.0.6", optional = true}
 ipykernel = "^5.4.3"
+tensorflow = "^2.4.1"
 
 [tool.poetry.dev-dependencies]
 
