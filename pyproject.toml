@@ -8,7 +8,7 @@ authors = ["andy <andy@sarsoo.xyz>"]
 python = "~3.8"
 numpy = "^1.19.5"
 opencv-python = "^4.5.1"
-scikit-learn = "^0.24.1"
+scikit-learn = "^1.0.1"
 scipy = "^1.6.0"
 jupyterlab = {version = "^3.0.6", optional = true}
 ipykernel = "^5.4.3"
